@@ -22,6 +22,47 @@ extern bool RLM3_GPS_SendMessage(const RLM3_GPS_MESSAGE* message);
 
 extern void RLM3_GPS_PulseCallback();
 
+extern void SIM_GPS_Write(const RLM3_GPS_MESSAGE* message);
+extern void SIM_GPS_Read(const RLM3_GPS_MESSAGE* message, bool result);
+extern void SIM_GPS_Pulse();
+
+
+#define RLM3_GPS_GET_MESSAGE_SIZE(MSG) (sizeof(MSG) - sizeof((MSG).payload_length))
+#define RLM3_GPS_SET_MESSAGE_SIZE(MSG) ((MSG).payload_length = RLM3_GPS_GET_MESSAGE_SIZE(MSG))
+
+
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_01_SYSTEM_RESTART                                = 0x01;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_02_QUERY_SOFTWARE_VERSION                        = 0x02;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_03_QUERY_SOFTWARE_CRC                            = 0x03;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_04_SET_FACTORY_DEFAULTS                          = 0x04;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_05_CONFIGURE_SERIAL_PORT                         = 0x05;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_08_CONFIGURE_NMEA_MESSAGE                        = 0x08;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_09_CONFIGURE_OUTPUT_MESSAGE_FORMAT               = 0x09;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_0E_CONFIGURE_SYSTEM_POSITION_RATE                = 0x0E;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_10_QUERY_SYSTEM_POSITION_UPDATE_RATE             = 0x10;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_1E_CONFIGURE_BINARY_MEASUREMENT_DATA_OUTPUT      = 0x1E;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_1F_QUERY_BINARY_MEASUREMENT_DATA_OUTPUT_STATUS   = 0x1F;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_30_GET_GPS_EPHEMERIS                             = 0x30;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_31_SET_EPHEMERIS                                 = 0x31;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_5B_GET_GLONASS_EPHEMERIS                         = 0x5B;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_5C_SET_GLONASS_EPHEMERIS                         = 0x5C;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_80_SOFTWARE_VERSION                              = 0x80;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_81_SOFTWARE_CRC                                  = 0x81;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_83_ACK                                           = 0x83;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_84_NACK                                          = 0x84;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_86_POSITION_UPDATE_RATE                          = 0x86;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_89_BINARY_MEASUREMENT_DATA_OUTPUT_STATUS         = 0x89;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_90_GLONASS_EPHEMERIS_DATA                        = 0x90;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_B1_GPS_EPHEMERIS_DATA                            = 0xB1;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_DC_MEASUREMENT_TIME                              = 0xDC;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_DD_RAW_MEASUREMENT                               = 0xDD;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_DE_SV_CH_STATUS                                  = 0xDE;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_DF_RECEIVER_STATE                                = 0xDF;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_E0_GPS_SUBFRAME                                  = 0xE0;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_E1_GLONASS_STRING_BUFFER                         = 0xE1;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_E2_BEIDOU2_D1_SUBFRAME_BUFFER                    = 0xE2;
+static const uint8_t RLM3_GPS_MESSAGE_TYPE_E3_BEIDOU2_D2_SUBFRAME_BUFFER                    = 0xE3;
+
 
 typedef struct __attribute__((__packed__))
 {
@@ -326,12 +367,6 @@ typedef struct __attribute__((__packed__))
 	uint8_t sfid; // Sub-frame ID
 	uint8_t data[28]; // Subframe data.
 } RLM3_GPS_MESSAGE_E3_BEIDOU2_D2_SUBFRAME_BUFFER;
-
-
-
-
-
-
 
 
 #ifdef __cplusplus
