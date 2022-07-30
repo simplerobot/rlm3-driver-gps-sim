@@ -25,8 +25,8 @@ typedef struct __attribute__((__packed__))
 } RLM3_GPS_MESSAGE;
 
 
-#define RLM3_GPS_GET_MESSAGE_SIZE(MSG) (sizeof(MSG) - sizeof((MSG).payload_length))
-#define RLM3_GPS_SET_MESSAGE_SIZE(MSG) ((MSG).payload_length = RLM3_GPS_GET_MESSAGE_SIZE(MSG))
+#define RLM3_GPS_GET_MESSAGE_PAYLOAD_SIZE(MSG) (sizeof(MSG) - sizeof((MSG).payload_length))
+#define RLM3_GPS_SET_MESSAGE_PAYLOAD_SIZE(MSG) ((MSG).payload_length = RLM3_GPS_GET_MESSAGE_PAYLOAD_SIZE(MSG))
 
 
 extern void RLM3_GPS_Init();
@@ -333,9 +333,9 @@ typedef struct __attribute__((__packed__))
 	double ecef_pos_x; // (meters)
 	double ecef_pos_y; // (meters)
 	double ecef_pos_z; // (meters)
-	double ecef_vel_x; // (m/s)
-	double ecef_vel_y; // (m/s)
-	double ecef_vel_z; // (m/s)
+	float ecef_vel_x; // (m/s)
+	float ecef_vel_y; // (m/s)
+	float ecef_vel_z; // (m/s)
 	double clock_bias; // (meters)
 	float clock_drift; // (m/s)
 	float gdop; // geometric dilution of precision
@@ -351,7 +351,7 @@ typedef struct __attribute__((__packed__))
 	uint8_t message_type;
 	uint8_t svid; // GPS Satellite PRN
 	uint8_t sfid; // Sub-frame ID
-	uint8_t subframe[10]; // Subframe data.
+	uint8_t subframe[30]; // Subframe data.
 } RLM3_GPS_MESSAGE_E0_GPS_SUBFRAME;
 
 typedef struct __attribute__((__packed__))
