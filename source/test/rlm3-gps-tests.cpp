@@ -47,7 +47,7 @@ TEST_CASE(RLM3_GPS_GetNextMessage_HappyCase)
 	SIM_GPS_Write((RLM3_GPS_MESSAGE*)&message02);
 	RLM3_GPS_Init();
 
-	RLM3_GPS_MESSAGE* result = RLM3_GPS_GetNextMessage(1000);
+	const RLM3_GPS_MESSAGE* result = RLM3_GPS_GetNextMessage(1000);
 
 	ASSERT(result != nullptr);
 	ASSERT(result->payload_length == 2);
@@ -70,7 +70,7 @@ TEST_CASE(RLM3_GPS_GetNextMessage_NoMessage)
 {
 	RLM3_GPS_Init();
 
-	RLM3_GPS_MESSAGE* result = RLM3_GPS_GetNextMessage(1000);
+	const RLM3_GPS_MESSAGE* result = RLM3_GPS_GetNextMessage(1000);
 
 	ASSERT(result == nullptr);
 }

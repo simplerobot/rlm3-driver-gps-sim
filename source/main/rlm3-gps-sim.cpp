@@ -36,7 +36,7 @@ extern bool RLM3_GPS_IsInit()
 	return g_is_initialized;
 }
 
-extern RLM3_GPS_MESSAGE* RLM3_GPS_GetNextMessage(size_t timeout_ms)
+extern const RLM3_GPS_MESSAGE* RLM3_GPS_GetNextMessage(size_t timeout_ms)
 {
 	ASSERT(g_is_initialized);
 	if (g_write_messages.empty())
@@ -57,6 +57,10 @@ extern bool RLM3_GPS_SendMessage(const RLM3_GPS_MESSAGE* message)
 }
 
 extern __attribute((weak)) void RLM3_GPS_PulseCallback()
+{
+}
+
+extern __attribute((weak)) void RLM3_GPS_ErrorCallback()
 {
 }
 

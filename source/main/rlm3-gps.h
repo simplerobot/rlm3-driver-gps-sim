@@ -6,29 +6,42 @@
 extern "C" {
 #endif
 
+
+typedef enum RLM3_GPS_Error
+{
+	RLM3_GPS_ERROR_INTERNAL,
+	RLM3_GPS_ERROR_BUFFER_FULL,
+	RLM3_GPS_ERROR_CHECKSUM_FAIL,
+	RLM3_GPS_ERROR_CHANNEL_FAIL,
+	RLM3_GPS_ERROR_PROTOCOL_FAIL,
+} RLM3_GPS_Error;
+
+
 typedef struct __attribute__((__packed__))
 {
 	uint16_t payload_length;
 	uint8_t message_type;
+	uint8_t data[0];
 } RLM3_GPS_MESSAGE;
+
+
+#define RLM3_GPS_GET_MESSAGE_SIZE(MSG) (sizeof(MSG) - sizeof((MSG).payload_length))
+#define RLM3_GPS_SET_MESSAGE_SIZE(MSG) ((MSG).payload_length = RLM3_GPS_GET_MESSAGE_SIZE(MSG))
 
 
 extern void RLM3_GPS_Init();
 extern void RLM3_GPS_Deinit();
 extern bool RLM3_GPS_IsInit();
 
-extern RLM3_GPS_MESSAGE* RLM3_GPS_GetNextMessage(size_t timeout_ms);
+extern const RLM3_GPS_MESSAGE* RLM3_GPS_GetNextMessage(size_t timeout_ms);
 extern bool RLM3_GPS_SendMessage(const RLM3_GPS_MESSAGE* message);
 
 extern void RLM3_GPS_PulseCallback();
+extern void RLM3_GPS_ErrorCallback(RLM3_GPS_Error error);
 
 extern void SIM_GPS_Write(const RLM3_GPS_MESSAGE* message);
 extern void SIM_GPS_Read(const RLM3_GPS_MESSAGE* message, bool result);
 extern void SIM_GPS_Pulse();
-
-
-#define RLM3_GPS_GET_MESSAGE_SIZE(MSG) (sizeof(MSG) - sizeof((MSG).payload_length))
-#define RLM3_GPS_SET_MESSAGE_SIZE(MSG) ((MSG).payload_length = RLM3_GPS_GET_MESSAGE_SIZE(MSG))
 
 
 static const uint8_t RLM3_GPS_MESSAGE_TYPE_01_SYSTEM_RESTART                                = 0x01;
