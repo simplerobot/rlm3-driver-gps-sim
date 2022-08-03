@@ -41,7 +41,7 @@ TEST_CASE(RLM3_GPS_Deinit_NotInitalized)
 TEST_CASE(RLM3_GPS_GetNextMessage_HappyCase)
 {
 	RLM3_GPS_MESSAGE_02_QUERY_SOFTWARE_VERSION message02 = {};
-	RLM3_GPS_SET_MESSAGE_SIZE(message02);
+	RLM3_GPS_SET_MESSAGE_PAYLOAD_SIZE(message02);
 	message02.message_type = RLM3_GPS_MESSAGE_TYPE_02_QUERY_SOFTWARE_VERSION;
 	message02.software_type = 1;
 	SIM_GPS_Write((RLM3_GPS_MESSAGE*)&message02);
@@ -58,7 +58,7 @@ TEST_CASE(RLM3_GPS_GetNextMessage_HappyCase)
 TEST_CASE(RLM3_GPS_GetNextMessage_NotInitalized)
 {
 	RLM3_GPS_MESSAGE_02_QUERY_SOFTWARE_VERSION message02 = {};
-	RLM3_GPS_SET_MESSAGE_SIZE(message02);
+	RLM3_GPS_SET_MESSAGE_PAYLOAD_SIZE(message02);
 	message02.message_type = RLM3_GPS_MESSAGE_TYPE_02_QUERY_SOFTWARE_VERSION;
 	message02.software_type = 1;
 	SIM_GPS_Write((RLM3_GPS_MESSAGE*)&message02);
@@ -78,7 +78,7 @@ TEST_CASE(RLM3_GPS_GetNextMessage_NoMessage)
 TEST_CASE(RLM3_GPS_SendMessage_HappyCase)
 {
 	RLM3_GPS_MESSAGE_02_QUERY_SOFTWARE_VERSION message02a = {};
-	RLM3_GPS_SET_MESSAGE_SIZE(message02a);
+	RLM3_GPS_SET_MESSAGE_PAYLOAD_SIZE(message02a);
 	message02a.message_type = RLM3_GPS_MESSAGE_TYPE_02_QUERY_SOFTWARE_VERSION;
 	message02a.software_type = 1;
 	SIM_GPS_Read((RLM3_GPS_MESSAGE*)&message02a, true);
@@ -91,7 +91,7 @@ TEST_CASE(RLM3_GPS_SendMessage_HappyCase)
 TEST_CASE(RLM3_GPS_SendMessage_Fails)
 {
 	RLM3_GPS_MESSAGE_02_QUERY_SOFTWARE_VERSION message02a = {};
-	RLM3_GPS_SET_MESSAGE_SIZE(message02a);
+	RLM3_GPS_SET_MESSAGE_PAYLOAD_SIZE(message02a);
 	message02a.message_type = RLM3_GPS_MESSAGE_TYPE_02_QUERY_SOFTWARE_VERSION;
 	message02a.software_type = 1;
 	SIM_GPS_Read((RLM3_GPS_MESSAGE*)&message02a, false);
@@ -104,7 +104,7 @@ TEST_CASE(RLM3_GPS_SendMessage_Fails)
 TEST_CASE(RLM3_GPS_SendMessage_Missing)
 {
 	RLM3_GPS_MESSAGE_02_QUERY_SOFTWARE_VERSION message02 = {};
-	RLM3_GPS_SET_MESSAGE_SIZE(message02);
+	RLM3_GPS_SET_MESSAGE_PAYLOAD_SIZE(message02);
 	message02.message_type = RLM3_GPS_MESSAGE_TYPE_02_QUERY_SOFTWARE_VERSION;
 	message02.software_type = 1;
 	RLM3_GPS_Init();
